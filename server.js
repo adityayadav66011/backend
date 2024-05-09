@@ -13,14 +13,18 @@ const contactRoute6 = require('./router/contact-router6');
 const contactRoute7 = require('./router/contact-router7');
 const contactRoute8 = require('./router/contact-router8');
 const contactRoute9 = require('./router/contact-router9');
-const contactRoute10 = require('./router/contact-router10'); // Import the router for contact form 10
-const contactRoute11 = require('./router/contact-router11'); // Import the router for contact form 11
-const contactRoute12 = require('./router/contact-router12'); // Import the router for contact form 12
-const contactRoute13 = require('./router/contact-router13'); // Import the router for contact form 12
-const contactRoute14 = require('./router/contact-router14'); // Import the router for contact form 12
-const contactRoute15 = require('./router/contact-router15'); // Import the router for contact form 12
-const contactRoute16 = require('./router/contact-router16'); // Import the router for contact form 12
-const contactRoute17 = require('./router/contact-router17'); // Import the router for contact form 12
+const contactRoute10 = require('./router/contact-router10');
+const contactRoute11 = require('./router/contact-router11');
+const contactRoute12 = require('./router/contact-router12');
+const contactRoute13 = require('./router/contact-router13');
+const contactRoute14 = require('./router/contact-router14');
+const contactRoute15 = require('./router/contact-router15');
+const contactRoute16 = require('./router/contact-router16');
+const contactRoute17 = require('./router/contact-router17');
+const contactRoute18 = require('./router/contact-router18');
+const contactRoute19 = require('./router/contact-router19'); // Import the router for contact form 19
+const contactRoute20 = require('./router/contact-router20'); // Import the router for contact form 20
+const contactRoute21 = require('./router/contact-router21'); // Import the router for contact form 20
 
 const serviceRoute = require("./router/service-router");
 const adminRoute = require("./router/admin-router");
@@ -47,15 +51,18 @@ app.use("/api/form", contactRoute6);
 app.use("/api/form", contactRoute7);
 app.use("/api/form", contactRoute8);
 app.use("/api/form", contactRoute9);
-app.use("/api/form", contactRoute10); // Use the router for the tenth form
-app.use("/api/form", contactRoute11); // Use the router for the eleventh form
-app.use("/api/form", contactRoute12); // Use the router for the twelfth form
-app.use("/api/form", contactRoute13); // Use the router for the twelfth form
-app.use("/api/form", contactRoute14); // Use the router for the twelfth form
-app.use("/api/form", contactRoute15); // Use the router for the twelfth form
-app.use("/api/form", contactRoute16); // Use the router for the twelfth form
-app.use("/api/form", contactRoute17); // Use the router for the twelfth form
-
+app.use("/api/form", contactRoute10);
+app.use("/api/form", contactRoute11);
+app.use("/api/form", contactRoute12);
+app.use("/api/form", contactRoute13);
+app.use("/api/form", contactRoute14);
+app.use("/api/form", contactRoute15);
+app.use("/api/form", contactRoute16);
+app.use("/api/form", contactRoute17);
+app.use("/api/form", contactRoute18);
+app.use("/api/form", contactRoute19); // Use the router for the nineteenth form
+app.use("/api/form", contactRoute20); // Use the router for the twentieth form
+app.use("/api/form", contactRoute21); // Use the router for the twentieth form
 
 app.use("/api/admin", adminRoute);
 
