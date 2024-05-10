@@ -25,6 +25,8 @@ const contactRoute18 = require('./router/contact-router18');
 const contactRoute19 = require('./router/contact-router19'); // Import the router for contact form 19
 const contactRoute20 = require('./router/contact-router20'); // Import the router for contact form 20
 const contactRoute21 = require('./router/contact-router21'); // Import the router for contact form 20
+const contactRoute22 = require('./router/contact-router22'); // Import the router for contact form 20
+const contactRoute23 = require('./router/contact-router23'); // Import the router for contact form 20
 
 const serviceRoute = require("./router/service-router");
 const adminRoute = require("./router/admin-router");
@@ -63,6 +65,9 @@ app.use("/api/form", contactRoute18);
 app.use("/api/form", contactRoute19); // Use the router for the nineteenth form
 app.use("/api/form", contactRoute20); // Use the router for the twentieth form
 app.use("/api/form", contactRoute21); // Use the router for the twentieth form
+app.use("/api/form", contactRoute22); // Use the router for the twentieth form
+app.use("/api/form", contactRoute23); // Use the router for the twentieth form
+
 
 app.use("/api/admin", adminRoute);
 
