@@ -30,6 +30,8 @@ const contactRoute23 = require('./router/contact-router23'); // Import the route
 const contactRoute24 = require('./router/contact-router24'); // Import the router for contact form 20
 const contact24DataRoute = require('./router/get-router'); // Import the router for fetching Contact Form 24 data
 
+const employeeRouter = require('./router/employee-router');
+
 const serviceRoute = require("./router/service-router");
 const adminRoute = require("./router/admin-router");
 const connectDb = require("./utils/db");
@@ -70,6 +72,7 @@ app.use("/api/form", contactRoute21); // Use the router for the twentieth form
 app.use("/api/form", contactRoute22); // Use the router for the twentieth form
 app.use("/api/form", contactRoute23); // Use the router for the twentieth form
 app.use("/api/form", contactRoute24); // Use the router for the twentieth form
+app.use("/api/v1", employeeRouter);
 
 // Use the route for fetching Contact Form 24 data
 app.use("/api/contact24Data", contact24DataRoute);
