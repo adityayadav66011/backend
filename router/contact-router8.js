@@ -31,7 +31,7 @@ router.route("/branchCodes").get(async (req, res) => {
 // Route for fetching city codes from Contact6 model
 router.route("/cityCodes").get(async (req, res) => {
     try {
-        const cityCodes = await Contact6.find({}, { City_Code: 1, _id: 0 });
+        const cityCodes = await Contact6.find({}, {State_Code:4,Country_Code:3,City_Name:2, City_Code: 1, _id: 0 });
         res.json(cityCodes);
     } catch (error) {
         console.error("Error fetching city codes:", error);
