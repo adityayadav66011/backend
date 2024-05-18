@@ -1,15 +1,4 @@
-const CropSoilSeasonMappingModel = require('../models/CropSoilSeasonMappingModel');
-// const Contact16 = require('../models/contact-model16');
-// const Contact17 = require('../models/contact-model17');
-// const Contact3 = require('../models/contact-model3');
-// const Contact23 = require('../models/contact-model23');
-// const Contact1 = require('../models/contact-model1');
-// const Contact2 = require('../models/contact-model2');
-// const Contact4 = require('../models/contact-model4');
-// const Contact5 = require('../models/contact-model5');
-// const Contact6 = require('../models/contact-model6');
-// const Contact20 = require('../models/contact-model20');
-
+const CropMaterialMappingModel = require('../models/CropMaterialMappingModel');
 
 
 const Create = async (req, res) => {
@@ -17,8 +6,7 @@ const Create = async (req, res) => {
         // Extract data from the request body
         const {
             Crop_Code,
-            Season_Code,
-            Soil_Code,
+            Material_Code,
         } = req.body;
 
         // // Fetch the previous customer code from the database
@@ -27,10 +15,9 @@ const Create = async (req, res) => {
 
         // // Create a new Contact24 document with the received data and generated customer code
         // const newCustomerCode = generateCustomerCode(previousCustomerCode);
-        await CropSoilSeasonMappingModel.create({
+        await CropMaterialMappingModel.create({
           Crop_Code:Crop_Code,
-          Season_Code:Season_Code,
-          Soil_Code:Soil_Code
+          Material_Code:Material_Code
         });
 
         // Send a success response
@@ -47,12 +34,11 @@ const getList = async (req, res) => {
     try {
         let queryForDb ={
             ...(req.query.soil_code?{Soil_Code:req.query.soil_code}:{}),
-            ...(req.query.season_code?{Season_Code:req.query.season_code}:{}),
-            ...(req.query.crop_code?{Crop_Code:req.query.crop_code}:{})
+            ...(req.query.material_code?{Material_Code:req.query.material_code}:{}),
         };
         
         
-        const data = await CropSoilSeasonMappingModel.find(queryForDb);
+        const data = await CropMaterialMappingModel.find(queryForDb);
 
         res.json(data);
     } catch (error) {
@@ -69,8 +55,7 @@ const Update = async (req, res) => {
         // Extract data from the request body
         const {
             Crop_Code,
-            Season_Code,
-            Soil_Code,
+            Material_Code,
         } = req.body;
 
         // // Fetch the previous customer code from the database
@@ -79,10 +64,9 @@ const Update = async (req, res) => {
 
         // // Create a new Contact24 document with the received data and generated customer code
         // const newCustomerCode = generateCustomerCode(previousCustomerCode);
-        await CropSoilSeasonMappingModel.findByIdAndUpdate(id,{
+        await CropMaterialMappingModel.findByIdAndUpdate(id,{
           Crop_Code:Crop_Code,
-          Season_Code:Season_Code,
-          Soil_Code:Soil_Code
+          Material_Code:Material_Code,
         });
 
         // Send a success response
