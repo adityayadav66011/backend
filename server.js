@@ -35,6 +35,7 @@ const adminRoute = require("./router/admin-router");
 const connectDb = require("./utils/db");
 const CropSoilSeasonMapRouter = require("./router/CropSoilSeasonMapRouter");
 const CropMaterialMapRouter= require("./router/CropMaterialMapRouter");
+const PlanVisitRouter= require("./router/PlanVisitRouter");
 
 const corsOptions = {
     origin: "*",
@@ -82,6 +83,7 @@ app.use("/api/contact24Data", contact24DataRoute);
 
 app.use("/api/crop-soil-season-mapping",CropSoilSeasonMapRouter)
 app.use("/api/crop-material-mapping",CropMaterialMapRouter)
+app.use("/api/plan-visit",PlanVisitRouter)
 // Handler for the root route ("/")
 app.get("/", (req, res) => {
     res.send("Welcome to your backend API!"); // You can customize this message
