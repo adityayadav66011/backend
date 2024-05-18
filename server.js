@@ -22,23 +22,21 @@ const contactRoute15 = require('./router/contact-router15');
 const contactRoute16 = require('./router/contact-router16');
 const contactRoute17 = require('./router/contact-router17');
 const contactRoute18 = require('./router/contact-router18');
-const contactRoute19 = require('./router/contact-router19'); // Import the router for contact form 19
-const contactRoute20 = require('./router/contact-router20'); // Import the router for contact form 20
-const contactRoute21 = require('./router/contact-router21'); // Import the router for contact form 20
-const contactRoute22 = require('./router/contact-router22'); // Import the router for contact form 20
-const contactRoute23 = require('./router/contact-router23'); // Import the router for contact form 20
-const contactRoute24 = require('./router/contact-router24'); // Import the router for contact form 20
-const contact24DataRoute = require('./router/get-router'); // Import the router for fetching Contact Form 24 data
-
+const contactRoute19 = require('./router/contact-router19');
+const contactRoute20 = require('./router/contact-router20');
+const contactRoute21 = require('./router/contact-router21');
+const contactRoute22 = require('./router/contact-router22');
+const contactRoute23 = require('./router/contact-router23');
+const contactRoute24 = require('./router/contact-router24');
+const contact24DataRoute = require('./router/get-router');
 const employeeRouter = require('./router/employee-router');
-
 const serviceRoute = require("./router/service-router");
 const adminRoute = require("./router/admin-router");
 const connectDb = require("./utils/db");
 
 const corsOptions = {
-    origin: "*", 
-    methods: "GET, POST, PUT, DELETE, PATCH, HEAD", 
+    origin: "*",
+    methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
     credentials: true,
 };
 
@@ -48,6 +46,7 @@ app.use(express.json());
 app.use("/api/auth", authRoute);
 app.use("/api/form", contactRoute);
 app.use("/api/data", serviceRoute);
+
 app.use("/api/form", contactRoute1);
 app.use("/api/form", contactRoute2);
 app.use("/api/form", contactRoute3);
@@ -66,18 +65,18 @@ app.use("/api/form", contactRoute15);
 app.use("/api/form", contactRoute16);
 app.use("/api/form", contactRoute17);
 app.use("/api/form", contactRoute18);
-app.use("/api/form", contactRoute19); // Use the router for the nineteenth form
-app.use("/api/form", contactRoute20); // Use the router for the twentieth form
-app.use("/api/form", contactRoute21); // Use the router for the twentieth form
-app.use("/api/form", contactRoute22); // Use the router for the twentieth form
-app.use("/api/form", contactRoute23); // Use the router for the twentieth form
-app.use("/api/form", contactRoute24); // Use the router for the twentieth form
+app.use("/api/form", contactRoute19);
+app.use("/api/form", contactRoute20);
+app.use("/api/form", contactRoute21);
+app.use("/api/form", contactRoute22);
+app.use("/api/form", contactRoute23);
+app.use("/api/form", contactRoute24);
+
 app.use("/api/v1", employeeRouter);
+app.use("/api/admin", adminRoute);
 
 // Use the route for fetching Contact Form 24 data
 app.use("/api/contact24Data", contact24DataRoute);
-
-app.use("/api/admin", adminRoute);
 
 // Handler for the root route ("/")
 app.get("/", (req, res) => {
