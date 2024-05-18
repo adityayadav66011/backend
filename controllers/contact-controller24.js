@@ -183,7 +183,7 @@ const getCityCodes = async (req, res) => {
 
 const getSoilNames = async (req, res) => {
   try {
-    const soilNames = await Contact20.find({}, { Soil_Name: 1, _id: 0 });
+    const soilNames = await Contact20.find({}, {Soil_Code:2, Soil_Name: 1, _id: 0 });
     res.json(soilNames);
   } catch (error) {
     console.error("Error fetching soil names:", error);
