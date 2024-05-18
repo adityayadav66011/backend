@@ -109,15 +109,15 @@ const getGstNames = async (req, res) => {
   }
 };
 
-const getStateCodes = async (req, res) => {
-  try {
-    const stateCodes = await Contact3.find({}, { State_Code: 1, _id: 0 });
-    res.json(stateCodes);
-  } catch (error) {
-    console.error("Error fetching state codes:", error);
-    res.status(500).json({ message: "Error fetching state codes" });
-  }
-};
+// const getStateCodes = async (req, res) => {
+//   try {
+//     const stateCodes = await Contact3.find({}, { Zone_Code:2,State_Code: 1, _id: 0 });
+//     res.json(stateCodes);
+//   } catch (error) {
+//     console.error("Error fetching state codes:", error);
+//     res.status(500).json({ message: "Error fetching state codes" });
+//   }
+// };
 
 const getPaymentTermCodes = async (req, res) => {
   try {
@@ -139,15 +139,17 @@ const getCountryCodes = async (req, res) => {
   }
 };
 
-const getZoneCodes = async (req, res) => {
-  try {
-    const zoneCodes = await Contact2.find({}, { Zone_Code: 1, _id: 0 });
-    res.json(zoneCodes);
-  } catch (error) {
-    console.error("Error fetching zone codes:", error);
-    res.status(500).json({ message: "Error fetching zone codes" });
-  }
-};
+// const getZoneCodes = async (req, res) => {
+//   try {
+//     debugger
+//     console.log("hi")
+//     const zoneCodes = await Contact2.find({}, { Zone_Code: 1, _id: 0 });
+//     res.json(zoneCodes);
+//   } catch (error) {
+//     console.error("Error fetching zone codes:", error);
+//     res.status(500).json({ message: "Error fetching zone codes" });
+//   }
+// };
 
 const getPoolCodes = async (req, res) => {
   try {
@@ -161,7 +163,7 @@ const getPoolCodes = async (req, res) => {
 
 const getStationCodes = async (req, res) => {
   try {
-    const stationCodes = await Contact5.find({}, { Station_Code: 1, _id: 0 });
+    const stationCodes = await Contact5.find({}, { Pool_Code:2,Station_Code: 1, _id: 0 });
     res.json(stationCodes);
   } catch (error) {
     console.error("Error fetching station codes:", error);
@@ -193,10 +195,10 @@ module.exports = {
   submitContact24Form,
   getCurrencyNames,
   getGstNames,
-  getStateCodes,
+  // getStateCodes,
   getPaymentTermCodes,
   getCountryCodes,
-  getZoneCodes,
+  // getZoneCodes,
   getPoolCodes,
   getStationCodes,
   getCityCodes,

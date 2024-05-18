@@ -6,7 +6,7 @@ const Contact5 = require("../models/contact-model5"); // Import the Contact5 mod
 // Route for fetching pool codes from Contact4 model
 router.route("/poolCodes").get(async (req, res) => {
     try {
-        const poolCodes = await Contact4.find({}, { Pool_Code: 1, _id: 0 });
+        const poolCodes = await Contact4.find({}, { State_Code:2,Pool_Code: 1, _id: 0 });
         res.json(poolCodes);
     } catch (error) {
         console.error("Error fetching pool codes:", error);
