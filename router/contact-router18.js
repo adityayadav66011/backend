@@ -5,14 +5,13 @@ const Contact18 = require("../models/contact-model18"); // Import the Contact18 
 // Route for fetching crop codes from Contact18 model
 router.route("/cropCodes").get(async (req, res) => {
     try {
-        const cropCodes = await Contact18.find({}, { Crop_Code: 1, _id: 0 });
+        const cropCodes = await Contact18.find({});
         res.json(cropCodes);
     } catch (error) {
         console.error("Error fetching crop codes:", error);
         res.status(500).json({ message: "Error fetching crop codes" });
     }
 });
-
 // Route for submitting Contact18 form
 router.route("/Contact18").post(async (req, res) => {
     try {

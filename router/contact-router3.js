@@ -6,7 +6,7 @@ const Contact3 = require("../models/contact-model3");
 // Route for fetching zone codes from Contact2 model
 router.route("/zoneCodes").get(async (req, res) => {
     try {
-        const zoneCodes = await Contact2.find({}, { Zone_Code: 1, _id: 0 });
+        const zoneCodes = await Contact2.find({}, { Country_Code:2,Zone_Code: 1, _id: 0 });
         res.json(zoneCodes);
     } catch (error) {
         console.error("Error fetching zone codes:", error);
