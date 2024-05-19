@@ -1,4 +1,5 @@
 const PlanVisitModel = require('../models/PlanVisitModel');
+const PlanColleagueModel = require('../models/PlanColleagueModel');
 
 const generateCustomerCode = (lastCode) => {
     const codeNumber = parseInt(lastCode.slice(2), 10) + 1; // Extract the numeric part and increment
@@ -21,7 +22,7 @@ const Create = async (req, res) => {
         const lastEntry = await PlanVisitModel.findOne({}, {}, { sort: { 'Plan_Code': -1 } });
         const previousCode = lastEntry ? lastEntry.Plan_Code : "PV0000";
         const newCode = generateCustomerCode(previousCode);
-        await PlanVisitModel.create({
+        var planData = await PlanVisitModel.create({
             Plan_Code: newCode,
             Customer_Code,
             Last_Visited_Date: Last_Visited_Date || null,
@@ -34,7 +35,7 @@ const Create = async (req, res) => {
         });
 
         // Send a success response
-        return res.status(200).json({ message: "Saved Successfully" });
+        return res.status(200).json(planData);
     } catch (error) {
         // Handle errors and send an error response
         console.error("Error while saving data:", error);
@@ -46,8 +47,9 @@ const Create = async (req, res) => {
 const getList = async (req, res) => {
     try {
         let queryForDb = {
-            ...(req.query.include_visit_done ? { Visit_Done_On: (req.query.include_visit_done == "0" ? null :  { $ne : null } ) } : {}),
-            ...(req.query.customer_code ? { Customer_Code:req.query.customer_code } : {}),
+            ...(req.query.include_visit_done ? { Visit_Done_On: (req.query.include_visit_done == "0" ? null : { $ne: null }) } : {}),
+            ...(req.query.customer_code ? { Customer_Code: req.query.customer_code } : {}),
+            ...(req.query.plan_code ? { Plan_Code: req.query.plan_code } : {}),
         };
 
 
@@ -59,41 +61,43 @@ const getList = async (req, res) => {
     }
 };
 
+const getPlanColleague = async (req, res) => {
+    try {
+        let queryForDb = {
+            ...(req.query.plan_code ? { Plan_Code: req.query.plan_code } : {}),
+        };
 
-// const Update = async (req, res) => {
-//     try {
-//         const id = req.params.id;
+        const data = await PlanColleagueModel.find(queryForDb);
+        res.json(data);
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        res.status(500).json({ message: "Error fetching data" });
+    }
+};
 
-//         // Extract data from the request body
-//         const {
-//             Crop_Code,
-//             Season_Code,
-//             Soil_Code,
-//         } = req.body;
+const cretePlanColleague = async (req, res) => {
+    try {
 
-//         // // Fetch the previous customer code from the database
-//         // const lastEntry = await Contact24.findOne({}, {}, { sort: { 'Customer_Code': -1 } });
-//         // const previousCustomerCode = lastEntry ? lastEntry.Customer_Code : "CC0001"; // Default to CC0001 if no previous entries
-
-//         // // Create a new Contact24 document with the received data and generated customer code
-//         // const newCustomerCode = generateCustomerCode(previousCustomerCode);
-//         await CropSoilSeasonMappingModel.findByIdAndUpdate(id, {
-//             Crop_Code: Crop_Code,
-//             Season_Code: Season_Code,
-//             Soil_Code: Soil_Code
-//         });
-
-//         // Send a success response
-//         return res.status(200).json({ message: "Update Successfully" });
-//     } catch (error) {
-//         // Handle errors and send an error response
-//         console.error("Error while Update mapping:", error);
-//         return res.status(500).json({ message: "Error while Update mapping" });
-//     }
-// };
+        let employeeData = req.body.filter(x => x.Plan_Code && x.Employee_Number).map(x => {
+            return {
+                Plan_Code: x.Plan_Code,
+                Employee_Number: x.Employee_Number
+            }
+        });
+        
+        await PlanColleagueModel.deleteMany({Plan_Code:employeeData[0].Plan_Code});
+        var planData = await PlanColleagueModel.insertMany(employeeData);
+        return res.status(200).json(planData);
+    } catch (error) {
+        console.error("Error saving data:", error);
+        res.status(500).json({ message: "Error saving data" });
+    }
+};
 
 module.exports = {
     Create,
     getList,
+    getPlanColleague,
+    cretePlanColleague
     // Update
 };
