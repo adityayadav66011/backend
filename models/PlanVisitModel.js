@@ -19,7 +19,6 @@ const planVisitModelSchema = new Schema({
   Planned_Date: { type: Date, required: false },
   Planned_Time: { type: Date, required: false },
   Remarks: { type: String, required: false },
-  Visit_Done_On: { type: Date, required: false }
 });
 
 const PlanVisitModel = model("PlanVisit", planVisitModelSchema);
