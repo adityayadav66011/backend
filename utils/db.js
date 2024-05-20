@@ -1,23 +1,27 @@
-// utils/db.js
-const { MongoClient } = require('mongodb');
+const mongoose = require('mongoose');
 
 const uri = 'mongodb+srv://ay81792:Ragnarok%401@cluster0.d3p3ljr.mongodb.net/mern_admin?retryWrites=true&w=majority&appName=Cluster0';
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
-let dbInstance;
 
 const connectDb = async () => {
-  if (dbInstance) return dbInstance;
-  await client.connect();
-  dbInstance = client.db('mern_admin');
-  console.log('Connected to MongoDB server');
-  return dbInstance;
+  try {
+    await mongoose.connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 30000 // Increase timeout to 30 seconds
+    });
+    console.log('Connected to MongoDB server');
+  } catch (error) {
+    console.error('Error connecting to MongoDB server:', error);
+    throw error;
+  }
 };
 
 const closeDb = async () => {
-  if (client && client.isConnected()) {
-    await client.close();
+  try {
+    await mongoose.connection.close();
     console.log('Disconnected from MongoDB server');
+  } catch (error) {
+    console.error('Error disconnecting from MongoDB server:', error);
   }
 };
 

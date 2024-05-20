@@ -9,11 +9,12 @@ const Contact4 = require('../models/contact-model4');
 const Contact5 = require('../models/contact-model5');
 const Contact6 = require('../models/contact-model6');
 const Contact20 = require('../models/contact-model20');
+const { connectDb } = require('../utils/db');
 
-// Controller to handle form submission for Contact24 form
 const submitContact24Form = async (req, res) => {
   try {
-    // Extract data from the request body
+    await connectDb();
+
     const {
       Type,
       Primary_Contact,
@@ -40,11 +41,9 @@ const submitContact24Form = async (req, res) => {
       Erp_Code
     } = req.body;
 
-    // Fetch the previous customer code from the database
     const lastEntry = await Contact24.findOne({}, {}, { sort: { 'Customer_Code': -1 } });
-    const previousCustomerCode = lastEntry ? lastEntry.Customer_Code : "CC0001"; // Default to CC0001 if no previous entries
+    const previousCustomerCode = lastEntry ? lastEntry.Customer_Code : "CC0001";
 
-    // Create a new Contact24 document with the received data and generated customer code
     const newCustomerCode = generateCustomerCode(previousCustomerCode);
     await Contact24.create({
       Customer_Code: newCustomerCode,
@@ -73,24 +72,21 @@ const submitContact24Form = async (req, res) => {
       Erp_Code
     });
 
-    // Send a success response
     return res.status(200).json({ message: "Contact form 24 submitted successfully" });
   } catch (error) {
-    // Handle errors and send an error response
     console.error("Error submitting Contact24 form:", error);
     return res.status(500).json({ message: "Failed to submit Contact24 form" });
   }
 };
 
-// Function to generate a new customer code based on the last customer code
 const generateCustomerCode = (lastCustomerCode) => {
-  const codeNumber = parseInt(lastCustomerCode.slice(2), 10) + 1; // Extract the numeric part and increment
-  return 'CC' + codeNumber.toString().padStart(4, '0'); // Format the new customer code
+  const codeNumber = parseInt(lastCustomerCode.slice(2), 10) + 1;
+  return 'CC' + codeNumber.toString().padStart(4, '0');
 };
 
-// Controller to fetch dropdown options
 const getCurrencyNames = async (req, res) => {
   try {
+    await connectDb();
     const currencyNames = await Contact16.find({}, { Currency_Name: 1, _id: 0 });
     res.json(currencyNames);
   } catch (error) {
@@ -101,6 +97,7 @@ const getCurrencyNames = async (req, res) => {
 
 const getGstNames = async (req, res) => {
   try {
+    await connectDb();
     const gstNames = await Contact17.find({}, { GST_Name: 1, _id: 0 });
     res.json(gstNames);
   } catch (error) {
@@ -109,18 +106,20 @@ const getGstNames = async (req, res) => {
   }
 };
 
-// const getStateCodes = async (req, res) => {
-//   try {
-//     const stateCodes = await Contact3.find({}, { Zone_Code:2,State_Code: 1, _id: 0 });
-//     res.json(stateCodes);
-//   } catch (error) {
-//     console.error("Error fetching state codes:", error);
-//     res.status(500).json({ message: "Error fetching state codes" });
-//   }
-// };
+const getStateCodes = async (req, res) => {
+  try {
+    await connectDb();
+    const stateCodes = await Contact3.find({}, { Zone_Code: 2, State_Code: 1, _id: 0 });
+    res.json(stateCodes);
+  } catch (error) {
+    console.error("Error fetching state codes:", error);
+    res.status(500).json({ message: "Error fetching state codes" });
+  }
+};
 
 const getPaymentTermCodes = async (req, res) => {
   try {
+    await connectDb();
     const paymentTermCodes = await Contact23.find({}, { paymentTermCode: 1, _id: 0 });
     res.json(paymentTermCodes);
   } catch (error) {
@@ -131,6 +130,7 @@ const getPaymentTermCodes = async (req, res) => {
 
 const getCountryCodes = async (req, res) => {
   try {
+    await connectDb();
     const countryCodes = await Contact1.find({}, { Country_Code: 1, _id: 0 });
     res.json(countryCodes);
   } catch (error) {
@@ -139,20 +139,20 @@ const getCountryCodes = async (req, res) => {
   }
 };
 
-// const getZoneCodes = async (req, res) => {
-//   try {
-//     debugger
-//     console.log("hi")
-//     const zoneCodes = await Contact2.find({}, { Zone_Code: 1, _id: 0 });
-//     res.json(zoneCodes);
-//   } catch (error) {
-//     console.error("Error fetching zone codes:", error);
-//     res.status(500).json({ message: "Error fetching zone codes" });
-//   }
-// };
+const getZoneCodes = async (req, res) => {
+  try {
+    await connectDb();
+    const zoneCodes = await Contact2.find({}, { Zone_Code: 1, _id: 0 });
+    res.json(zoneCodes);
+  } catch (error) {
+    console.error("Error fetching zone codes:", error);
+    res.status(500).json({ message: "Error fetching zone codes" });
+  }
+};
 
 const getPoolCodes = async (req, res) => {
   try {
+    await connectDb();
     const poolCodes = await Contact4.find({}, { Pool_Code: 1, _id: 0 });
     res.json(poolCodes);
   } catch (error) {
@@ -163,7 +163,8 @@ const getPoolCodes = async (req, res) => {
 
 const getStationCodes = async (req, res) => {
   try {
-    const stationCodes = await Contact5.find({}, { Pool_Code:2,Station_Code: 1, _id: 0 });
+    await connectDb();
+    const stationCodes = await Contact5.find({}, { Pool_Code: 2, Station_Code: 1, _id: 0 });
     res.json(stationCodes);
   } catch (error) {
     console.error("Error fetching station codes:", error);
@@ -173,6 +174,7 @@ const getStationCodes = async (req, res) => {
 
 const getCityCodes = async (req, res) => {
   try {
+    await connectDb();
     const cityCodes = await Contact6.find({}, { City_Code: 1, _id: 0 });
     res.json(cityCodes);
   } catch (error) {
@@ -183,7 +185,8 @@ const getCityCodes = async (req, res) => {
 
 const getSoilNames = async (req, res) => {
   try {
-    const soilNames = await Contact20.find({}, {Soil_Code:2, Soil_Name: 1, _id: 0 });
+    await connectDb();
+    const soilNames = await Contact20.find({}, { Soil_Code: 2, Soil_Name: 1, _id: 0 });
     res.json(soilNames);
   } catch (error) {
     console.error("Error fetching soil names:", error);
@@ -195,10 +198,10 @@ module.exports = {
   submitContact24Form,
   getCurrencyNames,
   getGstNames,
-  // getStateCodes,
+  getStateCodes,
   getPaymentTermCodes,
   getCountryCodes,
-  // getZoneCodes,
+  getZoneCodes,
   getPoolCodes,
   getStationCodes,
   getCityCodes,

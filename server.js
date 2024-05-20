@@ -31,11 +31,11 @@ const contactRoute24 = require('./router/contact-router24');
 const contact24DataRoute = require('./router/get-router');
 const employeeRouter = require('./router/employee-router');
 const serviceRoute = require("./router/service-router");
-const adminRoute = require("./router/admin-router");
-const connectDb = require("./utils/db");
+const { connectDb } = require("./utils/db"); // Fixing the import
 const CropSoilSeasonMapRouter = require("./router/CropSoilSeasonMapRouter");
-const CropMaterialMapRouter= require("./router/CropMaterialMapRouter");
-const PlanVisitRouter= require("./router/PlanVisitRouter");
+const CropMaterialMapRouter = require("./router/CropMaterialMapRouter");
+const PlanVisitRouter = require("./router/PlanVisitRouter");
+const adminRoute = require("./router/admin-router"); // Ensure this line is included
 
 const corsOptions = {
     origin: "*",
@@ -76,14 +76,15 @@ app.use("/api/form", contactRoute23);
 app.use("/api/form", contactRoute24);
 
 app.use("/api/v1", employeeRouter);
-app.use("/api/admin", adminRoute);
+app.use("/api/admin", adminRoute); // Ensure this line is correctly placed
 
 // Use the route for fetching Contact Form 24 data
 app.use("/api/contact24Data", contact24DataRoute);
 
-app.use("/api/crop-soil-season-mapping",CropSoilSeasonMapRouter)
-app.use("/api/crop-material-mapping",CropMaterialMapRouter)
-app.use("/api/plan-visit",PlanVisitRouter)
+app.use("/api/crop-soil-season-mapping", CropSoilSeasonMapRouter);
+app.use("/api/crop-material-mapping", CropMaterialMapRouter);
+app.use("/api/plan-visit", PlanVisitRouter);
+
 // Handler for the root route ("/")
 app.get("/", (req, res) => {
     res.send("Welcome to your backend API!"); // You can customize this message
