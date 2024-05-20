@@ -42,6 +42,7 @@ const fetchContact24Data = async (req, res) => {
 
     // Fetch records matching the query
     const documents = await collection.find(query).project({
+      Customer_Code: 1,
       Customer_Name: 1,
       City_Code: 1,
       Last_Visited: 1,

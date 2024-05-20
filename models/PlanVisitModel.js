@@ -10,7 +10,7 @@ const planVisitModelSchema = new Schema({
   },
   Customer_Code: {
     type: String,
-    required: true,
+    required: false,
     enum: customerMasterModel.schema.path("Customer_Code").enumValues, // Dropdown populated from Contact18
   },
   Last_Visited_Date: { type: Date, required: false },
